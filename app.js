@@ -8,9 +8,15 @@ const postRoutes=require("./routes/postRoutes.js")
 const userRoutes=require("./routes/userRoutes.js")
 const commentRoutes=require("./routes/commentRoutes.js")
 const likeRouter=require("./routes/likeRoutes.js")
+const cors=require('cors')
 app.use(express.json())
 app.use(express.urlencoded())
 connectDB()
+
+
+app.cors({
+    origin:["http://localhost:5173"]
+})
 
 app.use("/auth",authRoutes)
 app.use("/post",postRoutes)
