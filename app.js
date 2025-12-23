@@ -14,9 +14,11 @@ app.use(express.urlencoded())
 connectDB()
 
 
-app.cors({
-    origin:["http://localhost:5173"]
-})
+app.use(
+    cors({
+        origin: ["http://localhost:5173"]
+    })
+)
 
 app.use("/auth",authRoutes)
 app.use("/post",postRoutes)
