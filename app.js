@@ -16,7 +16,7 @@ connectDB()
 
 app.use(
     cors({
-        origin: ["blogsphere-task-client.vercel.app","http://localhost:5173"]
+        origin: ["ttps://blogsphere-task-client.vercel.app","http://localhost:5173"]
     })
 )
 
