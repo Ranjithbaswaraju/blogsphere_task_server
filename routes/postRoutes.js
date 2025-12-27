@@ -1,27 +1,54 @@
-
-
 const express = require("express");
 const {
   getPost,
   postPost,
   deletePost,
   getSinglePost,
-  updatePost
+  updatePost,
 } = require("../Controllers/postControllers");
+
 const { protect } = require("../middleWares/authMiddleWare");
-const { roleAllow } = require("../middleWares/roleMiddleWare.js");
-const { blogController } = require("../Controllers/blogController.js");
+const { roleAllow } = require("../middleWares/roleMiddleWare");
+const { blogController } = require("../Controllers/blogController");
+
 const router = express.Router();
 
-router.get("/getPost",getPost);
+// GET ALL POSTS
+router.get("/getPost", getPost);
 
-router.post("/postPost",protect,roleAllow("author"), postPost);
+// CREATE POST (author only)
+router.post(
+  "/postPost",
+  protect,
+  roleAllow("author"),
+  postPost
+);
 
+// GET SINGLE POST
 router.get("/getPost/:postId", getSinglePost);
-router.delete("/deletePost/:postId",protect,roleAllow("author"),deletePost);
-router.put("/updatePost/:postId",protect,roleAllow("author"),updatePost)
-router.patch("/getPost/:postId/toggle",protect,roleAllow("admin"),blogController)
 
+// DELETE POST (author only) ✅
+router.delete(
+  "/deletePost/:postId",
+  protect,
+  roleAllow("author"),
+  deletePost
+);
 
+// UPDATE POST
+router.put(
+  "/updatePost/:postId",
+  protect,
+  roleAllow("author"),
+  updatePost
+);
+
+// ADMIN TOGGLE
+router.patch(
+  "/getPost/:postId/toggle",
+  protect,
+  roleAllow("admin"),
+  blogController
+);
 
 module.exports = router;
